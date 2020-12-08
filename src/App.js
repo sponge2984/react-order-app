@@ -11,7 +11,7 @@ function App() {
     return (
         <div className="App">
             <ProvideAuth>
-                <Router>
+                <Router basename={process.env.PUBLIC_URL}>
                     <Switch>
                         <Route path="/login">
                             <Login />
