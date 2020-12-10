@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { authContext } from "../customhooks/useAuth";
 import Button from "@material-ui/core/Button";
@@ -42,38 +42,94 @@ const useStyles = makeStyles((theme) => ({
         margin: "10px",
     },
 }));
+
+function loginReducer(state, action) {
+    switch (action.type) {
+        case "field": {
+            return {
+                ...state,
+                [action.fieldName]: action.payload,
+            };
+        }
+        case "login": {
+            return {
+                ...state,
+                error: "",
+                isLoading: true,
+            };
+        }
+        case "success": {
+            return {
+                ...state,
+                isLoggedIn: true,
+                isLoading: false,
+            };
+        }
+        case "error": {
+            return {
+                ...state,
+                error: "Incorrect username or password!",
+                isLoggedIn: false,
+                isLoading: false,
+                username: "",
+                password: "",
+            };
+        }
+        case "logOut": {
+            return {
+                ...state,
+                isLoggedIn: false,
+            };
+        }
+        default:
+            return state;
+    }
+}
+
+const initialState = {
+    username: "",
+    password: "",
+    isLoading: false,
+    error: "",
+    isLoggedIn: false,
+};
+
 export default function Login() {
     const classes = useStyles();
     let history = useHistory();
     let auth = useContext(authContext);
-    const [values, setValues] = React.useState({
-        username: "",
-        password: "",
-        weight: "",
-        weightRange: "",
-        showPassword: false,
-    });
 
-    let login = () => {
-        auth.signin(() => {
-            history.push("/");
+    const [state, dispatch] = useReducer(loginReducer, initialState);
+    const { username, password, isLoading, error } = state;
+    const [showPassword, setShowPassword] = useState(false);
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        dispatch({ type: "login" });
+        try {
+            await auth.signin({ username, password }, () => {
+                dispatch({ type: "success" });
+                history.push("/");
+            });
+        } catch (error) {
+            dispatch({ type: "error" });
+        }
+    };
+
+    const handleChange = (prop) => (event) => {
+        console.log("handleChange:", prop);
+        dispatch({
+            type: "field",
+            fieldName: prop,
+            payload: event.currentTarget.value,
         });
     };
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
 
-    const handleClickShowPassword = () => {
-        setValues({ ...values, showPassword: !values.showPassword });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
     return (
         <div className={classes.loginWrapper}>
             <div className={classes.formContainer}>
                 <p>Login page </p>
+                {error && <p className="error">{error}</p>}
                 <FormControl
                     className={clsx(classes.margin, classes.textField)}
                     variant="outlined"
@@ -84,7 +140,7 @@ export default function Login() {
                     <OutlinedInput
                         id="outlined-adornment-username"
                         type={"text"}
-                        value={values.username}
+                        value={username}
                         onChange={handleChange("username")}
                         labelWidth={70}
                     />
@@ -98,18 +154,22 @@ export default function Login() {
                     </InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
-                        type={values.showPassword ? "text" : "password"}
-                        value={values.password}
+                        type={showPassword ? "text" : "password"}
+                        value={password}
                         onChange={handleChange("password")}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
+                                    onMouseDown={(event) =>
+                                        event.preventDefault()
+                                    }
                                     edge="end"
                                 >
-                                    {values.showPassword ? (
+                                    {showPassword ? (
                                         <Visibility />
                                     ) : (
                                         <VisibilityOff />
@@ -121,12 +181,13 @@ export default function Login() {
                     />
                 </FormControl>
                 <Button
-                    onClick={login}
+                    onClick={onSubmit}
                     style={{ margin: "10px" }}
                     variant="contained"
                     color="primary"
+                    disabled={isLoading}
                 >
-                    Login
+                    {isLoading ? "Logging in..." : "Log In"}
                 </Button>
             </div>
         </div>

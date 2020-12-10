@@ -3,35 +3,47 @@ import { Route, Redirect, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 export const authContext = React.createContext();
 
-const fakeAuth = {
-    isAuthenticated: false,
-    signin(cb) {
-        fakeAuth.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        fakeAuth.isAuthenticated = false;
-        setTimeout(cb, 100);
-    },
-};
 function useProvideAuth() {
-    const [user, setUser] = useState(localStorage.getItem("token") || null);
-
-    const signin = (cb) => {
-        return fakeAuth.signin(() => {
-            //get jwt token
-            setUser("user");
-            localStorage.setItem("token", "test");
-            cb();
-        });
+    const [user, setUser] = useState({
+        info: null,
+        token: localStorage.getItem("token") || null,
+        isLoggedIn: !!localStorage.getItem("token"),
+    });
+    const signin = (identity, cb) => {
+        /*fetch("http://localhost:5555/items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(identity),
+            })
+            .then((response) => {
+                setUser(identity.username);
+                //ok 代表狀態碼在範圍 200-299
+                if (!response.ok) throw new Error(response.statusText);
+                return response.json();
+            })
+            .then((item) => {
+                //get jwt token
+                //這裡可以顯示一些訊息，或是結束指示動畫…
+                //console.log(item)
+                setUser(identity.username);
+                localStorage.setItem("token", "test");
+                cb();
+            })
+            .catch((error) => {
+                //這裡可以顯示一些訊息
+                console.error(error);
+            });*/
+        localStorage.setItem("token", "test");
+        setUser({ info: identity.username, token: "test", isLoggedIn: true });
+        setTimeout(cb, 1000); // fake async
     };
 
     const signout = (cb) => {
-        return fakeAuth.signout(() => {
-            setUser(null);
-            localStorage.removeItem("token");
-            cb();
-        });
+        setUser({ info: null, token: null, isLoggedIn: false });
+        localStorage.removeItem("token");
+        setTimeout(cb, 100);
     };
 
     return {
@@ -52,7 +64,7 @@ export function PrivateRoute({ children, ...rest }) {
         <Route
             {...rest}
             render={({ location }) =>
-                auth.user ? (
+                auth.user.isLoggedIn ? (
                     children
                 ) : (
                     <Redirect
@@ -73,9 +85,11 @@ export function AuthButton({ className }) {
 
     return (
         <div className={className}>
-            {auth.user ? (
+            {auth.user.isLoggedIn ? (
                 <p>
-                    {`Welcome!! ${auth.username || ""}`}
+                    <span className="userName">{`Welcome!! ${
+                        auth.user.info || ""
+                    } `}</span>
                     <Button
                         onClick={() => {
                             auth.signout(() => history.push("/login"));

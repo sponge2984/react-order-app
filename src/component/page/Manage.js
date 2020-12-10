@@ -1,7 +1,7 @@
 import React from "react";
-import { useStyles } from "../styled/styledMain";
+import { useStylesMain } from "../styled/styledMain";
 function Manage() {
-    const classes = useStyles();
+    const classes = useStylesMain();
     return (
         <div className={classes.root}>
             <h1>Manage</h1>

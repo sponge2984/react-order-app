@@ -4,6 +4,6 @@ import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 
 export const MenuLists = [
     { label: "ORDER", icon: <MenuBookIcon />, path: "/order" },
-    { label: "MEALS", icon: <ListAltIcon />, path: "/meals" },
-    { label: "MANAGE", icon: <RestaurantMenuIcon />, path: "/manage" },
+    { label: "MEALS", icon: <RestaurantMenuIcon />, path: "/meals" },
+    { label: "MANAGE", icon: <ListAltIcon />, path: "/manage" },
 ];

@@ -11,7 +11,12 @@ const useStyles = makeStyles({
     root: {
         flexGrow: 1,
     },
-    authBtn: { position: "absolute", right: 0, top: 0, margin: "0 10px" },
+    authBtn: {
+        position: "absolute",
+        right: 0,
+        top: 0,
+        margin: "0 10px",
+    },
 });
 const pathLists = MenuLists.map((item) => item.path);
 function getDefaultIndex(path) {
@@ -31,23 +36,21 @@ export function MenuTabs() {
         history.push(pathLists[newValue]);
     };
     return (
-        <>
-            <Paper square className={classes.root}>
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="secondary"
-                    textColor="secondary"
-                    aria-label="icon label tabs example"
-                    centered
-                >
-                    {MenuLists.map((item) => (
-                        <Tab icon={item.icon} label={item.label} />
-                    ))}
-                </Tabs>
-                <AuthButton className={classes.authBtn} />
-            </Paper>
-        </>
+        <Paper square className={classes.root}>
+            <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="secondary"
+                textColor="secondary"
+                aria-label="icon label tabs example"
+                centered
+            >
+                {MenuLists.map((item) => (
+                    <Tab icon={item.icon} label={item.label} />
+                ))}
+            </Tabs>
+            <AuthButton className={classes.authBtn} />
+        </Paper>
     );
 }
 export function MainRoute({ children }) {
