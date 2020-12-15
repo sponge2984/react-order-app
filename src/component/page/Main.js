@@ -1,15 +1,14 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { AuthButton } from "../customhooks/useAuth";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import { MenuLists } from "../helper";
-
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
+        height: "11vh",
     },
     authBtn: {
         position: "absolute",
@@ -36,21 +35,22 @@ export function MenuTabs() {
         history.push(pathLists[newValue]);
     };
     return (
-        <Paper square className={classes.root}>
-            <Tabs
+        <>
+            <BottomNavigation
                 value={value}
                 onChange={handleChange}
-                indicatorColor="secondary"
-                textColor="secondary"
-                aria-label="icon label tabs example"
-                centered
+                showLabels
+                className={classes.root}
             >
                 {MenuLists.map((item) => (
-                    <Tab icon={item.icon} label={item.label} />
+                    <BottomNavigationAction
+                        label={item.label}
+                        icon={item.icon}
+                    />
                 ))}
-            </Tabs>
+            </BottomNavigation>
             <AuthButton className={classes.authBtn} />
-        </Paper>
+        </>
     );
 }
 export function MainRoute({ children }) {

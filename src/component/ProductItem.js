@@ -34,6 +34,7 @@ function ProductItem({ className, itemInfo, onSelect }) {
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                         {itemInfo.name}
+                        {` $${itemInfo.price}`}
                     </Typography>
                 </CardContent>
             </CardActionArea>

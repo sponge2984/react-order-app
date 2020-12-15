@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import AppBar from "@material-ui/core/AppBar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import FolderIcon from "@material-ui/icons/Folder";
@@ -15,38 +16,45 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ProductItem from "../ProductItem";
 import { useStylesMain } from "../styled/styledMain";
 import { useStylesOrder } from "../styled/styledOrder";
-import itemImg1 from "../../assets/images/item1.jpg";
-import itemImg2 from "../../assets/images/item2.jpg";
-import itemImg3 from "../../assets/images/item3.jpg";
-const itemLists = [
-    { name: "珍珠奶茶", id: "123534234", img: itemImg1 },
-    { name: "抹茶拿鐵", id: "564651351", img: itemImg2 },
-    { name: "四季春茶", id: "123123123123", img: itemImg3 },
-];
+import Button from "@material-ui/core/Button";
+import Pagination from "@material-ui/lab/Pagination";
+import { itemLists } from "./fakeItem";
 function Order() {
     const mainClasses = useStylesMain();
     const orderClasses = useStylesOrder();
     const [dense, setDense] = useState(true);
     const [secondary, setSecondary] = useState(true);
-    const [selectItem, setSelectItem] = useState([]);
+    const [selectItems, setSelectItems] = useState([]);
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     const handleClickAddItem = (o) => {
-        if (selectItem.every((el) => el.id !== o.id)) {
-            setSelectItem([...selectItem, o]);
+        const findItem = selectItems.find((el) => el.id === o.id);
+        if (findItem === undefined) {
+            setSelectItems([...selectItems, { ...o, count: 1 }]);
+        } else {
+            setSelectItems(
+                selectItems.map((el) =>
+                    el.id === o.id ? { ...o, count: el.count + 1 } : el
+                )
+            );
         }
     };
     const handlClickRemoveItem = (o) => {
-        console.log("r: ", o);
-        setSelectItem([...selectItem].filter((el) => el.id !== o.id));
+        setSelectItems([...selectItems].filter((el) => el.id !== o.id));
     };
     return (
         <div className={mainClasses.root}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} style={{ position: "relative" }}>
                 <Typography variant="h6" className={orderClasses.title}>
-                    {` 訂單編號:xxxxxxxx 共${selectItem.length}項`}
+                    {` 訂單編號:xxxxxxxx 共${selectItems.length}項`}
                 </Typography>
 
                 <List dense={dense}>
-                    {selectItem.map((item) => (
+                    {selectItems.map((item) => (
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar>
@@ -57,6 +65,12 @@ function Order() {
                                 primary={item.name}
                                 secondary={secondary ? "Secondary text" : null}
                             />
+                            <div className={orderClasses.orderCount}>
+                                {item.count}
+                            </div>
+                            <div className={orderClasses.orderPrice}>{`$${
+                                item.price * item.count
+                            }`}</div>
                             <ListItemSecondaryAction>
                                 <IconButton
                                     edge="end"
@@ -69,19 +83,52 @@ function Order() {
                         </ListItem>
                     ))}
                 </List>
+                <div
+                    className={orderClasses.totalPrice}
+                >{`總金額: ${selectItems.reduce(
+                    (acc, item) => item.price * item.count + acc,
+                    0
+                )} 元`}</div>
             </Grid>
-            <Grid
-                item
-                xs={12}
-                md={8}
-                className={orderClasses.itemCardContainer}
-            >
-                {itemLists.map((item) => (
-                    <ProductItem
-                        itemInfo={item}
-                        onSelect={handleClickAddItem}
-                    />
-                ))}
+            <Grid item xs={12} md={8} className={orderClasses.itemWrapper}>
+                <AppBar position="static" className={orderClasses.classifyTabs}>
+                    <Tabs
+                        value={value}
+                        variant="fullWidth"
+                        onChange={handleChange}
+                        aria-label="simple tabs example"
+                    >
+                        <Tab label="開胃菜" />
+                        <Tab label="主餐" />
+                        <Tab label="飲品" />
+                        <Tab label="甜點" />
+                    </Tabs>
+                </AppBar>
+
+                <div className={orderClasses.itemCardContainer}>
+                    {itemLists.map((item, idx) => (
+                        <ProductItem
+                            key={idx}
+                            itemInfo={item}
+                            onSelect={handleClickAddItem}
+                        />
+                    ))}
+                </div>
+
+                <Pagination
+                    className={orderClasses.Pagination}
+                    count={10}
+                    variant="outlined"
+                    color="primary"
+                />
+
+                <Button
+                    className={orderClasses.SendOrderBtn}
+                    variant="contained"
+                    color="primary"
+                >
+                    Pay
+                </Button>
             </Grid>
         </div>
     );

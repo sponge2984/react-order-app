@@ -4,7 +4,6 @@ export const useStylesMain = makeStyles({
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
-        height: "80vh",
-        margin: "20px",
+        height: "89vh",
     },
 });
