@@ -87,17 +87,20 @@ export function AuthButton({ className }) {
         <div className={className}>
             {auth.user.isLoggedIn ? (
                 <p>
-                    <span className="userName">{`Welcome!! ${
+                    <span className="userName">
+                        {/*`Welcome!! ${
                         auth.user.info || ""
-                    } `}</span>
+                    } `*/}
+                    </span>
                     <Button
                         onClick={() => {
                             auth.signout(() => history.push("/login"));
                         }}
                         variant="contained"
                         color="secondary"
+                        style={{ textTransform: "initial" }}
                     >
-                        Sign out
+                        Sign Out
                     </Button>
                 </p>
             ) : (

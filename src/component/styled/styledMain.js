@@ -4,6 +4,6 @@ export const useStylesMain = makeStyles({
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
-        height: "89vh",
+        height: "calc( 100vh - 68px )",
     },
 });

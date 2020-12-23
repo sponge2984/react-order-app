@@ -48,7 +48,7 @@ function Order() {
     };
     return (
         <div className={mainClasses.root}>
-            <Grid item xs={12} md={4} style={{ position: "relative" }}>
+            <Grid item xs={12} md={3} style={{ position: "relative" }}>
                 <Typography variant="h6" className={orderClasses.title}>
                     {` 訂單編號:xxxxxxxx 共${selectItems.length}項`}
                 </Typography>
@@ -90,8 +90,8 @@ function Order() {
                     0
                 )} 元`}</div>
             </Grid>
-            <Grid item xs={12} md={8} className={orderClasses.itemWrapper}>
-                <AppBar position="static" className={orderClasses.classifyTabs}>
+            <Grid item xs={12} md={9} className={orderClasses.itemWrapper}>
+                {/*<AppBar position="static" className={orderClasses.classifyTabs}>
                     <Tabs
                         value={value}
                         variant="fullWidth"
@@ -102,8 +102,9 @@ function Order() {
                         <Tab label="主餐" />
                         <Tab label="飲品" />
                         <Tab label="甜點" />
+                        <Tab label="其他" />
                     </Tabs>
-                </AppBar>
+                </AppBar>*/}
 
                 <div className={orderClasses.itemCardContainer}>
                     {itemLists.map((item, idx) => (
@@ -115,20 +116,21 @@ function Order() {
                     ))}
                 </div>
 
-                <Pagination
+                {/*<Pagination
                     className={orderClasses.Pagination}
                     count={10}
                     variant="outlined"
                     color="primary"
-                />
-
-                <Button
-                    className={orderClasses.SendOrderBtn}
-                    variant="contained"
-                    color="primary"
-                >
-                    Pay
-                </Button>
+                />*/}
+                <div className={orderClasses.orderFooter}>
+                    <Button
+                        className={orderClasses.SendOrderBtn}
+                        variant="contained"
+                        color="primary"
+                    >
+                        Pay
+                    </Button>
+                </div>
             </Grid>
         </div>
     );

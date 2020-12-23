@@ -3,7 +3,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 
 export const MenuLists = [
-    { label: "ORDER", icon: <MenuBookIcon />, path: "/order" },
-    { label: "MEALS", icon: <RestaurantMenuIcon />, path: "/meals" },
-    { label: "MANAGE", icon: <ListAltIcon />, path: "/manage" },
+    { label: "Order", icon: <MenuBookIcon />, path: "/order" },
+    { label: "Meals", icon: <RestaurantMenuIcon />, path: "/meals" },
+    { label: "Manage", icon: <ListAltIcon />, path: "/manage" },
 ];

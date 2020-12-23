@@ -23,4 +23,18 @@ export const itemLists = [
         price: 70,
         type: "0",
     },
+    {
+        name: "多多綠茶",
+        id: "12312312312322",
+        img: itemImg3,
+        price: 80,
+        type: "0",
+    },
+    {
+        name: "多多綠茶",
+        id: "123123123q12322",
+        img: itemImg3,
+        price: 80,
+        type: "0",
+    },
 ];

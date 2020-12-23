@@ -9,10 +9,11 @@ import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 const useStyles = makeStyles({
     root: {
-        maxWidth: 345,
-        width: "30%",
+        maxWidth: 180,
+        width: "180px",
         height: "200px",
         margin: "5px",
+        flex: "1 1 180px",
     },
 });
 
