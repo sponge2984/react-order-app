@@ -92,8 +92,9 @@ export function MenuTabs() {
                             showLabels={false}
                             className={classes.navigation}
                         >
-                            {MenuLists.map((item) => (
+                            {MenuLists.map((item, idx) => (
                                 <BottomNavigationAction
+                                    key={idx}
                                     label={item.label}
                                     icon={item.icon}
                                     className="navigationItem"

@@ -48,14 +48,24 @@ function Order() {
     };
     return (
         <div className={mainClasses.root}>
-            <Grid item xs={12} md={3} style={{ position: "relative" }}>
+            <Grid item xs={12} md={4} className={orderClasses.orderLeftSide}>
                 <Typography variant="h6" className={orderClasses.title}>
-                    {` 訂單編號:xxxxxxxx 共${selectItems.length}項`}
+                    {` 訂單編號: xxxxxxxxxxxx `}
                 </Typography>
-
-                <List dense={dense}>
-                    {selectItems.map((item) => (
-                        <ListItem>
+                <div className={orderClasses.listInfo}>
+                    <div className="thName">商品名稱</div>
+                    <div className="thCount">數量</div>
+                    <div className="thPrice">金額</div>
+                    <div className="thSet">操作</div>
+                </div>
+                {selectItems.length === 0 && (
+                    <div style={{ margin: "10px", color: "#ababab" }}>
+                        請點擊右方菜單新增品項
+                    </div>
+                )}
+                <List dense={dense} className={orderClasses.orderList}>
+                    {selectItems.map((item, idx) => (
+                        <ListItem key={idx}>
                             <ListItemAvatar>
                                 <Avatar>
                                     <FolderIcon />
@@ -83,14 +93,18 @@ function Order() {
                         </ListItem>
                     ))}
                 </List>
-                <div
-                    className={orderClasses.totalPrice}
-                >{`總金額: ${selectItems.reduce(
-                    (acc, item) => item.price * item.count + acc,
-                    0
-                )} 元`}</div>
+                <div className={orderClasses.totalPrice}>
+                    總金額: $
+                    <span style={{ minWidth: "50px", display: "inline-block" }}>
+                        {selectItems.reduce(
+                            (acc, item) => item.price * item.count + acc,
+                            0
+                        )}
+                    </span>
+                    元
+                </div>
             </Grid>
-            <Grid item xs={12} md={9} className={orderClasses.itemWrapper}>
+            <Grid item xs={12} md={8} className={orderClasses.orderRightSide}>
                 {/*<AppBar position="static" className={orderClasses.classifyTabs}>
                     <Tabs
                         value={value}
@@ -128,7 +142,7 @@ function Order() {
                         variant="contained"
                         color="primary"
                     >
-                        Pay
+                        送出訂單
                     </Button>
                 </div>
             </Grid>
