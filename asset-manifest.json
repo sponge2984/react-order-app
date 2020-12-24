@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-order-app/static/css/main.73efbf52.chunk.css",
-    "main.js": "/react-order-app/static/js/main.dfbe2194.chunk.js",
-    "main.js.map": "/react-order-app/static/js/main.dfbe2194.chunk.js.map",
+    "main.js": "/react-order-app/static/js/main.c1cf5813.chunk.js",
+    "main.js.map": "/react-order-app/static/js/main.c1cf5813.chunk.js.map",
     "runtime-main.js": "/react-order-app/static/js/runtime-main.d5d3c5d2.js",
     "runtime-main.js.map": "/react-order-app/static/js/runtime-main.d5d3c5d2.js.map",
     "static/js/2.842c4ff1.chunk.js": "/react-order-app/static/js/2.842c4ff1.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.d5d3c5d2.js",
     "static/js/2.842c4ff1.chunk.js",
     "static/css/main.73efbf52.chunk.css",
-    "static/js/main.dfbe2194.chunk.js"
+    "static/js/main.c1cf5813.chunk.js"
   ]
 }
