@@ -8,7 +8,6 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
     navigationContainer: {
         height: "auto",
-        background: "linear-gradient(to right, #24283e, #102f69, #0c1a29)",
+        background: "linear-gradient(to right, #172f5a, #102f69, #09284a)",
         display: "flex",
         justifyContent: "space-between",
         "& .navigationLeft": {

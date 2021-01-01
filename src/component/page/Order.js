@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import AppBar from "@material-ui/core/AppBar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -17,7 +14,6 @@ import ProductItem from "../ProductItem";
 import { useStylesMain } from "../styled/styledMain";
 import { useStylesOrder } from "../styled/styledOrder";
 import Button from "@material-ui/core/Button";
-import Pagination from "@material-ui/lab/Pagination";
 import { itemLists } from "./fakeItem";
 function Order() {
     const mainClasses = useStylesMain();

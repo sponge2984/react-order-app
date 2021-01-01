@@ -81,7 +81,7 @@ export const useStylesOrder = makeStyles((theme) => ({
         display: "flex",
         padding: "5px",
         alignItems: "center",
-        background: "#a2a2a2",
+        background: "#a2a2a27a",
         boxShadow:
             "inset 0px 2px 4px -1px rgba(0,0,0,0.12), inset 0px 4px 5px 0px rgba(0,0,0,0.24), inset 0px 1px 10px 0px rgba(0,0,0,0.42)",
     },
