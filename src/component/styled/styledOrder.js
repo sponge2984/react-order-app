@@ -23,7 +23,7 @@ export const useStylesOrder = makeStyles((theme) => ({
         boxShadow:
             "inset 0px 2px 4px -1px rgba(0,0,0,0.12), inset 0px 4px 5px 0px rgba(0,0,0,0.24)",
         height: "100%",
-        background: "#2f3038",
+        background: "#2f3038eb", //"#2f3038",
         width: "100%",
         flexDirection: "column",
         display: "flex",
@@ -72,7 +72,11 @@ export const useStylesOrder = makeStyles((theme) => ({
         width: "100px",
         height: "36px",
         background:
-            "radial-gradient(circle, rgba(171,130,9,0.9990371148459384) 5%, rgba(159,120,5,1) 34%, rgba(124,95,9,1) 68%, rgba(78,58,0,1) 100%)",
+            "radial-gradient(circle, rgba(171,130,9,0.9990371148459384) 5%, rgba(159,120,5,1) 34%, rgb(143 109 10) 68%, rgb(116 86 0) 100%)",
+        "&:hover": {
+            background:
+                "radial-gradient(circle, rgb(152 116 8 / 100%) 5%, rgb(141 106 4) 34%, rgb(125 95 9) 68%, rgb(98 72 0) 100%)",
+        },
     },
     title: {
         fontWeight: "bold",
@@ -81,7 +85,7 @@ export const useStylesOrder = makeStyles((theme) => ({
         display: "flex",
         padding: "5px",
         alignItems: "center",
-        background: "#a2a2a27a",
+        background: "#dcdcdc",
         boxShadow:
             "inset 0px 2px 4px -1px rgba(0,0,0,0.12), inset 0px 4px 5px 0px rgba(0,0,0,0.24), inset 0px 1px 10px 0px rgba(0,0,0,0.42)",
     },
@@ -92,8 +96,7 @@ export const useStylesOrder = makeStyles((theme) => ({
         alignItems: "center",
         color: "#fff",
         fontSize: "18px",
-        background:
-            "linear-gradient(180deg, rgb(165 165 165 / 100%) 5%, rgb(134 134 134) 34%, rgb(101 101 101) 68%, rgb(86 86 86))",
+        background: "linear-gradient(to right, #1b386d, #163f8f, #115095)",
         boxShadow:
             "0px 2px 4px -1px rgba(0,0,0,0.12), 0px 4px 5px 0px rgba(0,0,0,0.24), 0px 1px 10px 0px rgba(0,0,0,0.42)",
         "& .thName": {

@@ -10,21 +10,19 @@ import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 import FormControl from "@material-ui/core/FormControl";
-
+import loginBackground from "../../assets/images/loginbackground.jpg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 const useStyles = makeStyles((theme) => ({
-    root: {
-        "& > *": {
-            margin: theme.spacing(1),
-            width: "25ch",
-        },
-    },
     loginWrapper: {
-        width: "50%",
-        height: "50%",
-
-        margin: "10px auto",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        backgroundImage: `url(${loginBackground})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+        justifyContent: "center",
     },
     margin: {
         margin: theme.spacing(1),
@@ -36,10 +34,24 @@ const useStyles = makeStyles((theme) => ({
         width: "25ch",
     },
     formContainer: {
+        background: "#fff",
+        width: "300px",
+        height: "320px",
+        margin: "10px auto",
+        borderRadius: "5px",
+        boxShadow:
+            "0px 2px 4px -1px rgba(0,0,0,0.1), 0px 4px 4px 0px rgba(0,0,0,0.18), 0px 1px 10px 0px rgb(0,0,0,0.22)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         margin: "10px",
+    },
+    loginBtn: {
+        margin: "30px 10px 10px 10px",
+        background: "#5b96e0",
+        "&:hover": {
+            background: "#2e6ab5",
+        },
     },
 }));
 
@@ -182,10 +194,10 @@ export default function Login() {
                 </FormControl>
                 <Button
                     onClick={onSubmit}
-                    style={{ margin: "10px" }}
                     variant="contained"
                     color="primary"
                     disabled={isLoading}
+                    className={classes.loginBtn}
                 >
                     {isLoading ? "Logging in..." : "Log In"}
                 </Button>

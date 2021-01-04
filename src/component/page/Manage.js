@@ -6,6 +6,9 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useStylesManage } from "../styled/styledManage";
+import PeopleIcon from "@material-ui/icons/People";
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
 function Manage() {
     const classes = useStylesMain();
     const classesManage = useStylesManage();
@@ -16,7 +19,10 @@ function Manage() {
     };
 
     return (
-        <div className={classes.root} style={{ justifyContent: "flex-start" }}>
+        <div
+            className={classes.root}
+            style={{ justifyContent: "flex-start", position: "relative" }}
+        >
             <Tabs
                 orientation="vertical"
                 variant="scrollable"
@@ -25,18 +31,39 @@ function Manage() {
                 aria-label="Vertical tabs example"
                 className={classesManage.tabs}
             >
-                <Tab label="品項管理" {...a11yProps(0)} />
-                <Tab label="用戶管理" {...a11yProps(1)} />
-                <Tab label="統計圖表" {...a11yProps(2)} />
+                <Tab
+                    icon={<FastfoodIcon />}
+                    label="品項管理"
+                    {...a11yProps(0)}
+                />
+                <Tab icon={<PeopleIcon />} label="用戶管理" {...a11yProps(1)} />
+                <Tab
+                    icon={<AssessmentIcon />}
+                    label="統計圖表"
+                    {...a11yProps(2)}
+                />
             </Tabs>
-            <TabPanel value={value} index={0}>
+            <TabPanel
+                value={value}
+                index={0}
+                className={value === 0 && classesManage.tabPanel}
+            >
                 品項管理
                 <ItemTable />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel
+                value={value}
+                index={1}
+                className={value === 1 && classesManage.tabPanel}
+            >
                 用戶管理
+                <ItemTable />
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel
+                value={value}
+                index={2}
+                className={value === 2 && classesManage.tabPanel}
+            >
                 統計圖表
             </TabPanel>
         </div>

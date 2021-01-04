@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     },
     authBtn: {
         margin: "0 10px",
+        "& button": {
+            backgroundColor: "#5b96e0",
+            "&:hover": { backgroundColor: "#3e75b9" },
+        },
     },
     menuButton: {
         marginRight: theme.spacing(2),
