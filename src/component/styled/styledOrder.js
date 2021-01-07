@@ -44,8 +44,14 @@ export const useStylesOrder = makeStyles((theme) => ({
     classifyTabs: {
         width: "100%",
         //height: "50px",
+        boxShadow: "none",
+        borderBottom: "2px solid #2f2f35",
         color: "#fff",
-        backgroundColor: "#1976d2",
+        backgroundColor: "#3f4047 !important",
+        "& .MuiTabs-flexContainer button": { fontSize: "18px !important" },
+        "& .MuiTabs-indicator": {
+            backgroundColor: "#b5b5b5",
+        },
     },
     Pagination: {
         position: "absolute",
@@ -63,6 +69,7 @@ export const useStylesOrder = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
+        background: "#3f4047",
         bottom: 0,
         boxShadow:
             "0px 2px 4px -1px rgba(0,0,0,0.12), 0px 4px 5px 0px rgba(0,0,0,0.24), 0px 1px 10px 0px rgba(0,0,0,0.42)",
@@ -85,9 +92,6 @@ export const useStylesOrder = makeStyles((theme) => ({
         display: "flex",
         padding: "5px",
         alignItems: "center",
-        background: "#dcdcdc",
-        boxShadow:
-            "inset 0px 2px 4px -1px rgba(0,0,0,0.12), inset 0px 4px 5px 0px rgba(0,0,0,0.24), inset 0px 1px 10px 0px rgba(0,0,0,0.42)",
     },
     listInfo: {
         height: "36px",
@@ -97,8 +101,8 @@ export const useStylesOrder = makeStyles((theme) => ({
         color: "#fff",
         fontSize: "18px",
         background: "linear-gradient(to right, #1b386d, #163f8f, #115095)",
-        boxShadow:
-            "0px 2px 4px -1px rgba(0,0,0,0.12), 0px 4px 5px 0px rgba(0,0,0,0.24), 0px 1px 10px 0px rgba(0,0,0,0.42)",
+        /*boxShadow:
+            "0px 2px 4px -1px rgba(0,0,0,0.12), 0px 4px 5px 0px rgba(0,0,0,0.24), 0px 1px 10px 0px rgba(0,0,0,0.42)",*/
         "& .thName": {
             marginLeft: "12px",
         },

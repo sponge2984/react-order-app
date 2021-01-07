@@ -14,6 +14,9 @@ import ProductItem from "../ProductItem";
 import { useStylesMain } from "../styled/styledMain";
 import { useStylesOrder } from "../styled/styledOrder";
 import Button from "@material-ui/core/Button";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import { itemLists } from "./fakeItem";
 function Order() {
     const mainClasses = useStylesMain();
@@ -101,12 +104,14 @@ function Order() {
                 </div>
             </Grid>
             <Grid item xs={12} md={8} className={orderClasses.orderRightSide}>
-                {/*<AppBar position="static" className={orderClasses.classifyTabs}>
+                <AppBar position="static" className={orderClasses.classifyTabs}>
                     <Tabs
                         value={value}
                         variant="fullWidth"
                         onChange={handleChange}
-                        aria-label="simple tabs example"
+                        variant="scrollable"
+                        scrollButtons="auto"
+                        aria-label="scrollable auto tabs example"
                     >
                         <Tab label="開胃菜" />
                         <Tab label="主餐" />
@@ -114,7 +119,7 @@ function Order() {
                         <Tab label="甜點" />
                         <Tab label="其他" />
                     </Tabs>
-                </AppBar>*/}
+                </AppBar>
 
                 <div className={orderClasses.itemCardContainer}>
                     {itemLists.map((item, idx) => (
