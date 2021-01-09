@@ -6,32 +6,32 @@ function MemberTable() {
     return (
         <div style={{ maxWidth: "100%" }}>
             <MaterialTable
-                title="商品列表"
+                title="員工基本資料表"
                 columns={[
-                    { title: "名稱", field: "name" },
-                    { title: "價格($)", field: "price" },
+                    { title: "姓名", field: "name" },
+                    { title: "員工編號", field: "uid" },
 
                     {
-                        title: "代碼",
-                        field: "uuid",
+                        title: "部門",
+                        field: "department",
                     },
                     {
-                        title: "連結",
-                        field: "url",
+                        title: "職稱",
+                        field: "role",
                     },
                 ]}
                 data={[
                     {
-                        name: "bubble tea",
-                        price: 80,
-                        uuid: "123445",
-                        url: "/img/item1.png",
+                        name: "Josh",
+                        uid: 109101,
+                        department: "Baran",
+                        role: "Baran",
                     },
                     {
-                        name: "black tea",
-                        price: 50,
-                        uuid: "123446",
-                        url: "/img/item2.png",
+                        name: "Tommy",
+                        uid: 109102,
+                        department: "Baran",
+                        role: "Baran",
                     },
                 ]}
                 editable={{

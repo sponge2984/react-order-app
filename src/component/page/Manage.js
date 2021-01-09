@@ -1,16 +1,16 @@
 import React from "react";
 import { useStylesMain } from "../styled/styledMain";
 import ItemTable from "../table/ItemTable";
+import MemberTable from "../table/MemberTable";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 import { useStylesManage } from "../styled/styledManage";
 import PeopleIcon from "@material-ui/icons/People";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-
+import Grid from "@material-ui/core/Grid";
+import underContructionIcon from "../../assets/images/under-construction-png.png";
 function Manage() {
     const classes = useStylesMain();
     const classesManage = useStylesManage();
@@ -38,7 +38,7 @@ function Manage() {
                     label="品項管理"
                     {...a11yProps(0)}
                 />
-                <Tab icon={<PeopleIcon />} label="用戶管理" {...a11yProps(1)} />
+                <Tab icon={<PeopleIcon />} label="人事管理" {...a11yProps(1)} />
                 <Tab
                     icon={<ListAltIcon />}
                     label="訂單查詢"
@@ -55,7 +55,6 @@ function Manage() {
                 index={0}
                 className={value === 0 && classesManage.tabPanel}
             >
-                品項管理
                 <ItemTable />
             </TabPanel>
             <TabPanel
@@ -63,22 +62,25 @@ function Manage() {
                 index={1}
                 className={value === 1 && classesManage.tabPanel}
             >
-                用戶管理
-                <ItemTable />
+                <MemberTable />
             </TabPanel>
             <TabPanel
                 value={value}
                 index={2}
                 className={value === 2 && classesManage.tabPanel}
             >
-                訂單查詢
+                <img src={underContructionIcon} alt="Background" />
+                <h1>網站維護中</h1>
+                <h3>敬請期待...</h3>
             </TabPanel>
             <TabPanel
                 value={value}
                 index={3}
                 className={value === 3 && classesManage.tabPanel}
             >
-                統計圖表
+                <img src={underContructionIcon} alt="Background" />
+                <h1>網站維護中</h1>
+                <h3>敬請期待...</h3>
             </TabPanel>
         </div>
     );
@@ -105,9 +107,9 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
+                <Grid item xs={11} md={9} style={{ margin: "10px" }}>
+                    {children}
+                </Grid>
             )}
         </div>
     );
