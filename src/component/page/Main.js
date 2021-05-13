@@ -10,6 +10,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,10 +37,14 @@ const useStyles = makeStyles((theme) => ({
     navigation: {
         backgroundColor: "transparent",
         //height: '48px';
+
         "& .navigationItem": {
             color: "#ffffffba",
             "&:hover": {
                 color: "#fff",
+            },
+            [theme.breakpoints.down("sm")]: {
+                minWidth: "60px",
             },
         },
         "& .Mui-selected": {
@@ -64,7 +70,8 @@ function getDefaultIndex(path) {
 }
 export function MenuTabs() {
     const classes = useStyles();
-
+    const theme = useTheme();
+    const isWebSize = useMediaQuery(theme.breakpoints.up("md"));
     let history = useHistory();
     const location = useLocation();
     const [value, setValue] = React.useState(
@@ -75,43 +82,43 @@ export function MenuTabs() {
         history.push(pathLists[newValue]);
     };
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar className={classes.navigationContainer}>
-                    <span className="navigationLeft">
-                        <IconButton
-                            edge="start"
-                            className={classes.menuButton}
-                            color="inherit"
-                            aria-label="menu"
-                        >
-                            <MenuIcon />
-                        </IconButton>
+        <AppBar position="sticky">
+            <Toolbar className={classes.navigationContainer}>
+                <span className="navigationLeft">
+                    <IconButton
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="menu"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    {isWebSize && (
                         <Typography variant="h6" className={classes.title}>
                             Order App
                         </Typography>
-                    </span>
-                    <span className="navigationRight">
-                        <BottomNavigation
-                            value={value}
-                            onChange={handleChange}
-                            showLabels={false}
-                            className={classes.navigation}
-                        >
-                            {MenuLists.map((item, idx) => (
-                                <BottomNavigationAction
-                                    key={idx}
-                                    label={item.label}
-                                    icon={item.icon}
-                                    className="navigationItem"
-                                />
-                            ))}
-                        </BottomNavigation>
-                        <AuthButton className={classes.authBtn} />
-                    </span>
-                </Toolbar>
-            </AppBar>
-        </div>
+                    )}
+                </span>
+                <span className="navigationRight">
+                    <BottomNavigation
+                        value={value}
+                        onChange={handleChange}
+                        showLabels={false}
+                        className={classes.navigation}
+                    >
+                        {MenuLists.map((item, idx) => (
+                            <BottomNavigationAction
+                                key={idx}
+                                label={item.label}
+                                icon={item.icon}
+                                className="navigationItem"
+                            />
+                        ))}
+                    </BottomNavigation>
+                    <AuthButton className={classes.authBtn} />
+                </span>
+            </Toolbar>
+        </AppBar>
     );
 }
 export function MainRoute({ children }) {

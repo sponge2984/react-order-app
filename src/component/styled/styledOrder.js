@@ -18,7 +18,14 @@ export const useStylesOrder = makeStyles((theme) => ({
         right: "10px",
         width: "180px",
     },
-
+    totalPriceBottom: {
+        fontSize: "20px",
+        position: "absolute",
+        bottom: "17px",
+        left: "10px",
+        color: "#fff",
+        width: "180px",
+    },
     orderRightSide: {
         boxShadow:
             "inset 0px 2px 4px -1px rgba(0,0,0,0.12), inset 0px 4px 5px 0px rgba(0,0,0,0.24)",

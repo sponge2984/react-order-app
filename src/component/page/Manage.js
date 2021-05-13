@@ -53,21 +53,21 @@ function Manage() {
             <TabPanel
                 value={value}
                 index={0}
-                className={value === 0 && classesManage.tabPanel}
+                className={value === 0 ? classesManage.tabPanel : ""}
             >
                 <ItemTable />
             </TabPanel>
             <TabPanel
                 value={value}
                 index={1}
-                className={value === 1 && classesManage.tabPanel}
+                className={value === 1 ? classesManage.tabPanel : ""}
             >
                 <MemberTable />
             </TabPanel>
             <TabPanel
                 value={value}
                 index={2}
-                className={value === 2 && classesManage.tabPanel}
+                className={value === 2 ? classesManage.tabPanel : ""}
             >
                 <img src={underContructionIcon} alt="Background" />
                 <h1>網站維護中</h1>
@@ -76,7 +76,7 @@ function Manage() {
             <TabPanel
                 value={value}
                 index={3}
-                className={value === 3 && classesManage.tabPanel}
+                className={value === 3 ? classesManage.tabPanel : ""}
             >
                 <img src={underContructionIcon} alt="Background" />
                 <h1>網站維護中</h1>

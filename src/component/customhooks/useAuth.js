@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+
 export const authContext = React.createContext();
 
 function useProvideAuth() {
@@ -82,7 +85,8 @@ export function PrivateRoute({ children, ...rest }) {
 export function AuthButton({ className }) {
     let history = useHistory();
     let auth = useContext(authContext);
-
+    const theme = useTheme();
+    const isWebSize = useMediaQuery(theme.breakpoints.up("md"));
     return (
         <div className={className}>
             {auth.user.isLoggedIn ? (
@@ -100,7 +104,7 @@ export function AuthButton({ className }) {
                         color="secondary"
                         style={{ textTransform: "initial" }}
                     >
-                        Sign Out
+                        {isWebSize ? "Sign Out" : "Logout"}
                     </Button>
                 </p>
             ) : (

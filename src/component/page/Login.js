@@ -24,14 +24,12 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: "center center",
         justifyContent: "center",
     },
-    margin: {
-        margin: theme.spacing(1),
-    },
     withoutLabel: {
         marginTop: theme.spacing(3),
     },
     textField: {
         width: "25ch",
+        margin: theme.spacing(1),
     },
     formContainer: {
         background: "#fff",
@@ -44,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        margin: "10px",
     },
     loginBtn: {
         margin: "30px 10px 10px 10px",
@@ -142,10 +139,7 @@ export default function Login() {
             <div className={classes.formContainer}>
                 <p>Login page </p>
                 {error && <p className="error">{error}</p>}
-                <FormControl
-                    className={clsx(classes.margin, classes.textField)}
-                    variant="outlined"
-                >
+                <FormControl className={classes.textField} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-username">
                         UserName
                     </InputLabel>
@@ -157,10 +151,7 @@ export default function Login() {
                         labelWidth={70}
                     />
                 </FormControl>
-                <FormControl
-                    className={clsx(classes.margin, classes.textField)}
-                    variant="outlined"
-                >
+                <FormControl className={classes.textField} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">
                         Password
                     </InputLabel>
