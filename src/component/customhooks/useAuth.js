@@ -40,20 +40,52 @@ function useAuth(postData) {
         refetch: refetch,
     };
 }
+const getUserFetcher = ({ queryKey }) =>
+    !!queryKey[1]
+        ? axios
+              .get(queryKey[0], {
+                  headers: {
+                      Authorization: `Bearer ${queryKey[1]["access_token"]}`,
+                  },
+              })
+              .then((res) => res.data)
+        : null;
+
+function useUser(token) {
+    const { data, isFetching, isError } = useQuery(
+        ["/api/login/get_roles", token],
+        getUserFetcher,
+        {
+            retry: false,
+            refetchOnWindowFocus: false,
+            enabled: !!token,
+        }
+    );
+
+    return { userInfo: data, isLoading: isFetching, isError: isError };
+}
 
 export function ProvideAuth({ children }) {
     const [params, setParams] = useState({ name: "", pass: "" });
     let history = useHistory();
     const { token, isLoading, isError, refetch } = useAuth(params);
+    const { userInfo } = useUser(token);
 
     const [authState, setAuthState] = React.useState({
         token: localStorage.getItem("token") || "",
         refreshToken: "",
         isLoading: isLoading,
         isError: isError,
+        userInfo: {},
         signIn: (n, p) => goSignIn(n, p),
         signOut: () => goSignOut(),
     });
+
+    useEffect(() => {
+        if (!!userInfo) {
+            setAuthState({ ...authState, userInfo: userInfo[0] });
+        }
+    }, [userInfo]);
 
     useEffect(() => {
         refetch();

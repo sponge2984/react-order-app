@@ -1,9 +1,7 @@
-import React, { useState, useContext, useReducer, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../Context";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -13,6 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import loginBackground from "../../assets/images/loginbackground.jpg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
 const useStyles = makeStyles((theme) => ({
     loginWrapper: {
         width: "100vw",
@@ -69,18 +68,22 @@ export default function Login() {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [isShowError, setIsShowError] = useState(false);
+
     const onSubmit = () => {
-        signIn(payload.n, payload.p);
+        signIn("root", "qaz12y7");
+        //signIn(payload.n, payload.p);
     };
 
     const handleChange = (prop) => (event) => {
         setPayload({ ...payload, [prop]: event.currentTarget.value });
     };
+
     useEffect(() => {
         if (isError) {
             setIsShowError(true);
         }
     }, [isError]);
+
     return (
         <div className={classes.loginWrapper}>
             <div className={classes.formContainer}>
