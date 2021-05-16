@@ -121,11 +121,3 @@ export function MenuTabs() {
         </AppBar>
     );
 }
-export function MainRoute({ children }) {
-    return (
-        <>
-            <MenuTabs />
-            {children}
-        </>
-    );
-}

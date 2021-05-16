@@ -2,7 +2,7 @@
     "name": "react-order-app",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://sponge2984.github.io/react-order-app/",
+    "homepage": "./",
     "dependencies": {
         "@material-ui/core": "^4.11.2",
         "@material-ui/icons": "^4.11.2",
@@ -13,10 +13,11 @@
         "axios": "^0.21.1",
         "clsx": "^1.1.1",
         "gh-pages": "^3.1.0",
-        "http-proxy-middleware": "^1.0.6",
+        "http-proxy-middleware": "^1.3.1",
         "material-table": "^1.69.2",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
+        "react-query": "^3.16.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.1",
         "web-vitals": "^0.2.4"

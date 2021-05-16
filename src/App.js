@@ -6,17 +6,20 @@ import Order from "./component/page/Order";
 import Manage from "./component/page/Manage";
 import Meals from "./component/page/Meals";
 import { ProvideAuth, PrivateRoute } from "./component/customhooks/useAuth";
-import { MainRoute } from "./component/page/Main";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
 function App() {
     return (
         <div className="App">
-            <ProvideAuth>
-                <Router basename={process.env.PUBLIC_URL}>
-                    <Switch>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-                        <MainRoute>
+            <Router basename={process.env.PUBLIC_URL}>
+                <Switch>
+                    <QueryClientProvider client={queryClient}>
+                        <ProvideAuth>
+                            <Route path="/login">
+                                <Login />
+                            </Route>
                             <PrivateRoute exact path="/">
                                 <Order />
                             </PrivateRoute>
@@ -29,10 +32,10 @@ function App() {
                             <PrivateRoute path="/meals">
                                 <Meals />
                             </PrivateRoute>
-                        </MainRoute>
-                    </Switch>
-                </Router>
-            </ProvideAuth>
+                        </ProvideAuth>
+                    </QueryClientProvider>
+                </Switch>
+            </Router>
         </div>
     );
 }

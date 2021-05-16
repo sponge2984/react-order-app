@@ -1,6 +1,6 @@
-import React, { useState, useContext, useReducer } from "react";
+import React, { useState, useContext, useReducer, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { authContext } from "../customhooks/useAuth";
+import { AuthContext } from "../Context";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import Alert from "@material-ui/lab/Alert";
 import FormControl from "@material-ui/core/FormControl";
 import loginBackground from "../../assets/images/loginbackground.jpg";
 import Visibility from "@material-ui/icons/Visibility";
@@ -42,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        "& .error": {
+            position: "fixed",
+            top: "35px",
+            width: "300px",
+            zIndex: 5,
+        },
     },
     loginBtn: {
         margin: "30px 10px 10px 10px",
@@ -52,93 +58,43 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function loginReducer(state, action) {
-    switch (action.type) {
-        case "field": {
-            return {
-                ...state,
-                [action.fieldName]: action.payload,
-            };
-        }
-        case "login": {
-            return {
-                ...state,
-                error: "",
-                isLoading: true,
-            };
-        }
-        case "success": {
-            return {
-                ...state,
-                isLoggedIn: true,
-                isLoading: false,
-            };
-        }
-        case "error": {
-            return {
-                ...state,
-                error: "Incorrect username or password!",
-                isLoggedIn: false,
-                isLoading: false,
-                username: "",
-                password: "",
-            };
-        }
-        case "logOut": {
-            return {
-                ...state,
-                isLoggedIn: false,
-            };
-        }
-        default:
-            return state;
-    }
-}
-
-const initialState = {
-    username: "",
-    password: "",
-    isLoading: false,
-    error: "",
-    isLoggedIn: false,
-};
-
 export default function Login() {
     const classes = useStyles();
-    let history = useHistory();
-    let auth = useContext(authContext);
+    let { auth } = useContext(AuthContext);
+    const { isLoading, isError, signIn } = auth;
 
-    const [state, dispatch] = useReducer(loginReducer, initialState);
-    const { username, password, isLoading, error } = state;
+    const [payload, setPayload] = useState({
+        n: "",
+        p: "",
+    });
     const [showPassword, setShowPassword] = useState(false);
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        dispatch({ type: "login" });
-        try {
-            await auth.signin({ username, password }, () => {
-                dispatch({ type: "success" });
-                history.push("/");
-            });
-        } catch (error) {
-            dispatch({ type: "error" });
-        }
+    const [isShowError, setIsShowError] = useState(false);
+    const onSubmit = () => {
+        signIn(payload.n, payload.p);
     };
 
     const handleChange = (prop) => (event) => {
-        console.log("handleChange:", prop);
-        dispatch({
-            type: "field",
-            fieldName: prop,
-            payload: event.currentTarget.value,
-        });
+        setPayload({ ...payload, [prop]: event.currentTarget.value });
     };
-
+    useEffect(() => {
+        if (isError) {
+            setIsShowError(true);
+        }
+    }, [isError]);
     return (
         <div className={classes.loginWrapper}>
             <div className={classes.formContainer}>
-                <p>Login page </p>
-                {error && <p className="error">{error}</p>}
+                <p>登入</p>
+                {isShowError && (
+                    <Alert
+                        severity="error"
+                        variant="filled"
+                        className="error"
+                        onClose={() => setIsShowError(false)}
+                    >
+                        帳號密碼錯誤請重新輸入
+                    </Alert>
+                )}
                 <FormControl className={classes.textField} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-username">
                         UserName
@@ -146,8 +102,8 @@ export default function Login() {
                     <OutlinedInput
                         id="outlined-adornment-username"
                         type={"text"}
-                        value={username}
-                        onChange={handleChange("username")}
+                        value={payload.n}
+                        onChange={handleChange("n")}
                         labelWidth={70}
                     />
                 </FormControl>
@@ -158,8 +114,8 @@ export default function Login() {
                     <OutlinedInput
                         id="outlined-adornment-password"
                         type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={handleChange("password")}
+                        value={payload.p}
+                        onChange={handleChange("p")}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
